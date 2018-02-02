@@ -66,9 +66,7 @@ class LVM < Thor
             unzip filename, File.join(DIR, "ruby/ruby/")
             path = ENV['path']
             outpath = File.join(File.join(File.join(DIR, "ruby/ruby"), File.basename(filename, ".*")), "/bin").tr("/", "\\")
-            path[outpath] = "" if path[outpath]
-            path[";;"]=";" if path[";;"]
-            path = "#{outpath};#{path}"
+            path = "#{outpath};#{path.sub(outpath, "").sub(";;", ";")}"
             puts "set path=#{path}"
             puts %{REM @FOR /f "tokens=*" %i IN ('ruby #{DIR.tr("\\", "/")}/lvm.rb use #{version}') DO @%i}
         end
