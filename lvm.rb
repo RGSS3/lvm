@@ -57,7 +57,7 @@ class LVM < Thor
 
     desc "use [VERSION]", "Get and use certain version of ruby"
     def use(version)
-        href = versionlist.find{|x| x[version]}
+        href = versionlist.find{|x| x["-" + version]}
         if !href
             STDERR.puts "can't get #{version}"
             exit
