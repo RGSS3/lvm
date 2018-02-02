@@ -9,7 +9,7 @@ def require_gem(a)
 begin
     gem a
 rescue Exception
-    system "gem install #{a}"
+    system "gem install #{a} 1>&2"
     gem a
 end
 require a
@@ -70,7 +70,7 @@ class LVM < Thor
             path[";;"]=";" if path[";;"]
             path = "#{outpath};#{path}"
             puts "set path=#{path}"
-            puts "REM @FOR /f \"tokens=*\" %i IN ('ruby lvm.rb use #{version}') DO @%i"
+            puts %{REM @FOR /f "tokens=*" %i IN ('ruby #{DIR.tr("\\", "/")}/lvm.rb use #{version}') DO @%i}
         end
     end
     start ARGV
